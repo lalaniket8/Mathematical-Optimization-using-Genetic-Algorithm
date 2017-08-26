@@ -13,11 +13,11 @@ public class LinAlgebra extends Generation{
 		objectiveFun.setExp("x+y", false, true);
 		
 	 	e1 = new Exp();
-	    e1.setExp("x",true,false);
+	    e1.setExp("x*x*x",true,false);
 	    constraints.add(e1);
 
 	    e2 = new Exp();
-	    e2.setExp("8",false,false);
+	    e2.setExp("3",false,false);
 	    constraints.add(e2);
 	    
 	    variationRate = 0.1;
