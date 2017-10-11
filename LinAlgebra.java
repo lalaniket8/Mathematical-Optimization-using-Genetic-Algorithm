@@ -9,15 +9,20 @@ public class LinAlgebra extends Generation{
 	
 	LinAlgebra(){
 		
+		//here is where you give constraints and obj fun
+		final String objectiveFunString = "x+y";
+		final String constraint1String = "2*x";
+		final String constraint2String = "5";
+		
 		objectiveFun = new Exp();
-		objectiveFun.setExp("x+y", false, true);
+		objectiveFun.setExp(objectiveFunString, false, true);
 		
 	 	e1 = new Exp();
-	    e1.setExp("x*x*x",true,false);
+	    e1.setExp(constraint1String,true,false);
 	    constraints.add(e1);
 
 	    e2 = new Exp();
-	    e2.setExp("3",false,false);
+	    e2.setExp(constraint2String,false,false);
 	    constraints.add(e2);
 	    
 	    variationRate = 0.1;
