@@ -75,24 +75,26 @@ public class Exp {
     	
     }
     
-    public ArrayList<SimplePoint> getCoordsSet(double lowerLimit, double upperLimit, double step) {
+    public ArrayList<SimplePoint> getCoordsSet(double limitX, double limitY, double step) {
 		if(!isObjFun)
 		{
 		ArrayList<SimplePoint> coordsSet = new ArrayList<SimplePoint>();
-		for(double i = lowerLimit; i<upperLimit; i+=step) {
+		for(double i = 0; i<limitX; i+=step) {
 			if(isfx)
 				{this.addValue("x", i);
 				 SimplePoint sp = new SimplePoint();
 				 sp.x = i;
 				 sp.y = this.solve();
-				 coordsSet.add(sp);
+				 if(sp.y <= limitY)
+					 coordsSet.add(sp);
 				}
 			else
 			{this.addValue("y", i);
 			SimplePoint sp = new SimplePoint();
-			 sp.x = this.solve();
+			 sp.x = this.solve();				 
 			 sp.y = i;
-			 coordsSet.add(sp);
+			 if(sp.x <= limitX)
+				 coordsSet.add(sp);
 			}
 		}
     	return coordsSet;

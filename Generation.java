@@ -14,15 +14,24 @@ public abstract class Generation {
 	protected XYLineChart_AWT chart;
 	protected Point[] matingPool;
 	protected Exp objectiveFun;
+	protected int windowX,windowY;
+	Point solution = null;
 	
 	//display present generation on graph
-public void displayGraph(String title, String genName, String xAxesName, String yAxesName) {
-	chart = new XYLineChart_AWT(title,genName,xAxesName,yAxesName,constraints);
+public void displayGraph(String title, String genName, String xAxesName, String yAxesName,int windowX, int windowY) {
+	chart = new XYLineChart_AWT(title,genName,xAxesName,yAxesName,constraints,windowX, windowY);
 	chart.pack( );          
     RefineryUtilities.centerFrameOnScreen(chart);          
     chart.setVisible(true);    
     chart.dispConstraints();
     chart.initPopulation(population,populationInitFlag);
+    this.windowX = windowX;
+    this.windowY = windowY;
+   
+}
+
+public void dispSolutionOnGraph() {
+	 chart.dispSoln(solution);
 }
 
 public void updateGraph(String title) {
@@ -46,14 +55,14 @@ protected abstract void breed();
 protected abstract void initPopulation(Point[] p);
 
 //generate offspring from 2 parent Points. 
-protected abstract Point genOffspring(Point p1,Point p2);
+protected abstract Point[] genOffspring(Point p1);
 
 //generate population with random genotype
-public Point[] genRandomPopulation(int range) {
+public Point[] genRandomPopulation() {
 	Point[] randomPopulation = new Point[populationSize];
 	 Random rand = new Random();
          for (int i = 0; i < populationSize; i++) {
-        	 Point p = new Point(rand.nextDouble() * range,rand.nextDouble() * range);
+        	 Point p = new Point(rand.nextDouble() * windowX,rand.nextDouble() * windowY);
              randomPopulation[i] = p;
             // randomPopulation[i].setY(rand.nextDouble() * 15);
             // xydataset.getSeries(PopulationSeriesIndex).add(x,y);

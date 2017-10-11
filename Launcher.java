@@ -7,35 +7,40 @@ import org.jfree.ui.RefineryUtilities;
 import com.sun.javafx.fxml.expression.Expression;
 
 public class Launcher {
-
+	
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		//set window value carefully!
+		final int windowX = 10;
+		final int windowY = 10;
 		
 		//try {	
 		LinAlgebra la = new LinAlgebra();
-		la.displayGraph("EMPTY", "", "x ", "y ");
+		la.displayGraph("EMPTY", "", "x ", "y ",windowX,windowY);
 
-	    Point[] p = la.genRandomPopulation(15);
+	    Point[] p = la.genRandomPopulation();
 	    int count=0;
 	    
 		la.initPopulation(p);
 		try {
 			Thread.sleep(2000);
-   	    while(count<15) {
+   	    while(count<25) {
 		count++;
    	    la.updateGraph("Generation-"+count+":Entire Population");
-	    
-   	    Thread.sleep(500);
+	    la.printSolution();
+   	    Thread.sleep(600);
 	    
 	    la.calFitness();
 	    la.genMatingPool();
 	    la.updateGraph("Generation-"+count+":Mating Pool");
 		
-	    Thread.sleep(500);
+	    Thread.sleep(600);
 		
 	    la.breed();
 	    la.updateGraph("Generation-"+count+":Offsprings");
-	    Thread.sleep(500);
+	    Thread.sleep(600);
+	    System.gc();
    	    }
 		}
 		catch (InterruptedException e) {

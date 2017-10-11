@@ -23,23 +23,28 @@ public class XYLineChart_AWT extends ApplicationFrame {
 	private XYSeriesCollection xydataset; //collection of series
 	private XYLineAndShapeRenderer renderer;//renderer for line plotting
 	private XYPlot plot;//XYPlot object
-	private int PopulationSeriesIndex; 
+	private int PopulationSeriesIndex,SolutionIndex; 
 	private ArrayList<Exp> constraints;
+	private int windowX,windowY;
 	
-	public XYLineChart_AWT(String applicationTitle, String chartTitle, String Xaxis, String Yaxis, ArrayList<Exp> constraints) {
+	public XYLineChart_AWT(String applicationTitle, String chartTitle, String Xaxis, String Yaxis, ArrayList<Exp> constraints,int winX,int winY) {
 
         super(applicationTitle);
         this.constraints = constraints;
         
+        this.windowX=winX;this.windowY=winY;
+        
         //x-axis
         final XYSeries xaxis = new XYSeries( "X-Axis" );          
-        for(float i=-1; i<=15; i+=0.1)
+        for(float i=-1; i<=windowX+1; i+=0.1)
         {xaxis.add( i , 0 );}
         
         //y-axis
         final XYSeries yaxis = new XYSeries( "Y-Axis" );          
-        for(float i=-2; i<=15; i+=0.1)
+        for(float i=-2; i<=windowY+1; i+=0.1)
         {yaxis.add( 0 , i );}
+        
+        final XYSeries solution = new XYSeries( "solution" );      
         
         //populationSeries is a collection of points holding the entire population of points where each point is an individual organism
         XYSeries populationSeries = new XYSeries( "IndivisualSeries" );
@@ -48,8 +53,10 @@ public class XYLineChart_AWT extends ApplicationFrame {
         //add all series
          xydataset.addSeries( xaxis );
          xydataset.addSeries( yaxis );
+         xydataset.addSeries(solution);
          xydataset.addSeries( populationSeries );
          PopulationSeriesIndex = xydataset.indexOf(populationSeries);            
+         SolutionIndex = xydataset.indexOf(solution);            
 
          
         //final TimeSeriesCollection dataset = new TimeSeriesCollection(this.series);
@@ -122,6 +129,19 @@ public class XYLineChart_AWT extends ApplicationFrame {
         return xylineChart;
     }
  
+ public void dispSoln(Point soln) {
+	 try {
+		 xydataset.getSeries(SolutionIndex).clear();
+		xydataset.getSeries(SolutionIndex).add(soln.getX(), soln.getY());
+	} catch (PointUsageException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 renderer.setSeriesPaint( SolutionIndex , Color.RED );
+	 renderer.setSeriesShape( SolutionIndex, ShapeUtilities.createRegularCross(1.5f, 1.5f));
+	 plot.setRenderer( renderer );
+ }
+ 
  public void dispConstraints() {
 
 	 for(int index=0; index<constraints.size(); index++) {
@@ -138,7 +158,7 @@ public class XYLineChart_AWT extends ApplicationFrame {
 				e.printStackTrace();
 			}*/
 		 
-		 ArrayList<SimplePoint> coordsSet = constraints.get(index).getCoordsSet(0, 10, 0.1);
+		 ArrayList<SimplePoint> coordsSet = constraints.get(index).getCoordsSet(windowX, windowY, 0.1);
 		 
 		 for(SimplePoint sp:coordsSet)
 		 {

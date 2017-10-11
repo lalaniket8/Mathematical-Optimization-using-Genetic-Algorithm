@@ -44,7 +44,7 @@ public double getFitness()  throws PointUsageException {
 	if(isFitnessSet)
 		return this.fitness;
 	else
-		throw new PointUsageException("fitness for this point not beign set yet");
+		throw new PointUsageException("fitness for this point not set yet");
 }
 
 public double getY() throws PointUsageException {
