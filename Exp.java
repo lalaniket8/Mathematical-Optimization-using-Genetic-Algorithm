@@ -16,16 +16,22 @@ public class Exp {
 	//otherwise false
 	private Boolean isObjFun = false;
 	
+	private String operator;
+	
 	//get expression
 	public String getExp() {
 		return exp;
 	}
 	
 	//initialize exp and isfx
-	public void setExp(String exp,Boolean isfx,Boolean isObjFun) {
+	public void setExp(String exp,Boolean isfx,Boolean isObjFun, String operator) {
 		this.exp = exp;
 		this.isfx = isfx;
 		this.isObjFun = isObjFun;
+		if(isObjFun)
+			this.operator= "";
+			else
+				this.operator = operator;
 	}
 	
 	@Override
@@ -51,6 +57,21 @@ public class Exp {
     	return this.isfx;
     }
     
+    public Boolean followsOperator(double val1, String op, double val2) {
+    Boolean ret = false;
+    	switch(op) {
+    case "<": if(val1 < val2) ret = true;break;
+    case "<=": if(val1 <= val2) ret = true;break;
+    case ">": if(val1 > val2) ret = true;break;
+    case ">=": if(val1 >= val2) ret = true;break;
+    case "==": if(val1 == val2) ret = true;break;
+    case "!=": if(val1 != val2) ret = true;break;
+    case "=": if(val1 == val2) ret = true;break;
+    default: ret=false;
+    }
+    	return ret;
+    }
+    
     public Boolean getisObjFunFlag() {
     	return this.isObjFun;
     }
@@ -59,7 +80,7 @@ public class Exp {
     	if(isfx)
 		{this.addValue("x", x);
 		
-		 if(y <= this.solve())
+		 if(followsOperator(y,operator,this.solve()))
 			 return true;
 		 else
 			 return false;
@@ -67,7 +88,7 @@ public class Exp {
 	else
 	{this.addValue("y", y);
 	//System.out.println(this.exp+":"+x+","+y+"="+this.solve());
-	if(x <= this.solve())
+	if(followsOperator(x,operator,this.solve()))
 		 return true;
 	 else
 		 return false;

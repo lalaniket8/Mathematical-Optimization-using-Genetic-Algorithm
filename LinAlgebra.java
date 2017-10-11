@@ -5,15 +5,16 @@ import java.util.Random;
 
 public class LinAlgebra extends Generation{
 	 
-	Exp e1,e2;
+	//Exp e1,e2,e3,e4;
+	ArrayList<Exp> expressions = new ArrayList<Exp>();
 	//here is where you give constraints and obj fun
 	final String objectiveFunString = "x*x+y";
-	final String constraint1String = "4";
+	final String constraint1String = "Math.sin(3*x)";
 	final String constraint2String = "5";
-	final String constraint3String = "4";
-	final String constraint4String = "3";
-	final int Scale = 3;
-	final Boolean Maximization = false;
+	final String constraint3String = "3";
+	final String constraint4String = "6";
+	final int Scale = 1;
+	final Boolean Maximization = true;
 	final double matingPoolSelectionRatio = 0.75;
 	//Point solution = null;
 	
@@ -23,25 +24,43 @@ public class LinAlgebra extends Generation{
 		variationRate = 0.1;
 		
 		objectiveFun = new Exp();
-		objectiveFun.setExp(objectiveFunString, false, true);
-		
-	 	e1 = new Exp();
-	    e1.setExp(constraint1String,true,false);
-	    constraints.add(e1);
+		objectiveFun.setExp(objectiveFunString, false, true,"");
+		Exp e;
+	 	e = new Exp();
+	    e.setExp(constraint1String,true,false,"<=");
+	    constraints.add(e);
 
-	    e2 = new Exp();
-	    e2.setExp(constraint2String,false,false);
-	    constraints.add(e2);
+	    e = new Exp();
+	    e.setExp(constraint2String,false,false,"<=");
+	    constraints.add(e);
+	/*    
+	    e = new Exp();
+	    e.setExp(constraint3String,true,false,">=");
+	    constraints.add(e);
+	    
+	    e = new Exp();
+	    e.setExp(constraint4String,true,false,"<=");
+	    constraints.add(e);*/
 	    
 	    
 	}
+	
+	protected Boolean satisfyAll(double x, double y) {
+		Boolean flag = true;
+		for(Exp e: constraints) {
+			if(!e.satisfy(x,y))
+				{flag = false;break;}
+		}
+		return flag;
+	}
+	
 	@Override
 	protected void calFitness() {
 		// TODO Auto-generated method stub
 		for(int i=0; i<populationSize; i++) {
 			try {
 				this.population[i].setFitness(0);
-				if(this.population[i].getX()>=0 && this.population[i].getY()>=0 && e1.satisfy(this.population[i].getX(),this.population[i].getY()) && e2.satisfy(this.population[i].getX(),this.population[i].getY())){
+				if(this.population[i].getX()>=0 && this.population[i].getY()>=0 && satisfyAll(this.population[i].getX(),this.population[i].getY())){
 					this.population[i].setFitness(objectiveFun.solve(this.population[i].getX(),this.population[i].getY()));				
 				}
 			
