@@ -7,7 +7,7 @@ public class Launcher {
 		// set window value carefully!
 		final int windowX = 10;
 		final int windowY = 10;
-
+//test
 		// try {
 		LinAlgebra la = new LinAlgebra();
 		la.displayGraph("EMPTY", "", "x ", "y ", windowX, windowY);
