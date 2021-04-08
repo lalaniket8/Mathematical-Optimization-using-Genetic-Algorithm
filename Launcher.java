@@ -25,17 +25,17 @@ public class Launcher {
 				la.updateGraph("Generation-" + count + ":Entire Population");
 				prevObjFunSoln = currObjFunSoln;
 				currObjFunSoln = la.printSolution();
-				Thread.sleep(600);
+				Thread.sleep(700);
 
 				la.calFitness();
 				la.genMatingPool();
 				la.updateGraph("Generation-" + count + ":Mating Pool");
 
-				Thread.sleep(600);
+				Thread.sleep(700);
 
 				la.breed();
 				la.updateGraph("Generation-" + count + ":Offsprings");
-				Thread.sleep(600);
+				Thread.sleep(700);
 				System.gc();
 			}
 		} catch (InterruptedException e) {
