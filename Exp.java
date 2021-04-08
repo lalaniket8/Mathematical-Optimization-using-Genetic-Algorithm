@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package simulator;
 
+import java.util.ArrayList;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;

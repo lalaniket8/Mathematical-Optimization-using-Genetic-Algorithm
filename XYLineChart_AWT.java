@@ -1,7 +1,8 @@
+package simulator;
+
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Shape;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -20,6 +21,10 @@ import org.jfree.util.ShapeUtilities;
 
 public class XYLineChart_AWT extends ApplicationFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private XYSeriesCollection xydataset; //collection of series
 	private XYLineAndShapeRenderer renderer;//renderer for line plotting
 	private XYPlot plot;//XYPlot object

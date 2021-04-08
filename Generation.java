@@ -1,6 +1,7 @@
+package simulator;
+
 import java.util.ArrayList;
 import java.util.Random;
-
 import org.jfree.ui.RefineryUtilities;
 
 //Defines all methods and members for implementing Genetic Algorithm

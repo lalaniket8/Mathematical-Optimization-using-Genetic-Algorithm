@@ -1,3 +1,5 @@
+package simulator;
+
 /*
  * Class point is a point on the graph and also a possible solution
  * candidate for the problem.

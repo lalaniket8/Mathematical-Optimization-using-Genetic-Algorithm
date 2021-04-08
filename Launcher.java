@@ -1,10 +1,4 @@
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
-import org.jfree.ui.RefineryUtilities;
-
-import com.sun.javafx.fxml.expression.Expression;
+package simulator;
 
 public class Launcher {
 	
