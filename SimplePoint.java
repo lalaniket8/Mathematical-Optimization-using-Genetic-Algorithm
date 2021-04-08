@@ -1,5 +1,6 @@
 package simulator;
 
 public class SimplePoint {
-public double x;public double y;
+	public double x;
+	public double y;
 }
