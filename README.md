@@ -25,4 +25,4 @@ Scope for imporvement:
 4) Properly scale graph output
 5) UI modification
 
-Video : [Take me to youtube](https://youtu.be/07VRD8BHcP8)
+Video : [link](https://youtu.be/PIsZ9wNAK7o)
